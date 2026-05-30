@@ -23,6 +23,7 @@ impl Engine {
             let dt = self.delta_time();
             self.check_user_input();
             self.game_state.update(dt);
+            self.render();
         }
     }
 
@@ -31,10 +32,9 @@ impl Engine {
     }
 
     pub fn check_user_input(&self) {
-        println!("checking user input")
     }
 
-    pub fn render(&self) {
+    pub fn render(&mut self) {
         let renderables: Vec<&dyn Renderable> = vec![
             &self.game_state.player
         ];

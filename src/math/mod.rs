@@ -5,7 +5,6 @@ pub struct Point {
 }
 
 pub enum Shape {
-    Rect(Rect),
     Circle(Circle)
 }
 

@@ -12,6 +12,5 @@ impl GameState {
     }
 
     pub fn update(&self, delta_time: f32) {
-        println!("updating {}", delta_time);
     }
 }

@@ -4,7 +4,8 @@ use ratatui::{
     DefaultTerminal,
     Frame,
     style::Color,
-    widgets::canvas::{Canvas, Circle as RatatuiCircle},
+    text::{Text, Line},
+    widgets::{Paragraph, canvas::{Canvas, Circle as RatatuiCircle}},
 };
 
 pub struct RatatuiBackend {
@@ -35,7 +36,19 @@ fn draw_circle(circle: &Circle, frame: &mut Frame, width: u16, height: u16) {
 }
 
 impl DrawBackend for RatatuiBackend {
-    fn render(&mut self, renderables: &[&dyn Renderable], width: u16, height: u16) {
+    fn render_home(&mut self) {
+        self.terminal.draw(|frame| {
+            let text = Text::from(vec![
+                Line::from("ROCKET LEAGUE"),
+                Line::from(""),
+                Line::from("SPACE - Start"),
+                Line::from("ESC   - Quit"),
+            ]);
+            frame.render_widget(Paragraph::new(text).centered(), frame.area());
+        }).unwrap();
+    }
+
+    fn render_game(&mut self, renderables: &[&dyn Renderable], width: u16, height: u16) {
         self.terminal.draw(|frame| {
             for renderable in renderables {
                 match renderable.shape() {

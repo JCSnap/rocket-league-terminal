@@ -1,7 +1,12 @@
 use crate::core::{GameState, Renderer, Renderable};
 
+pub enum GameScreen {
+    Home,
+    Playing
+}
+
 pub struct Engine {
-    is_running: bool,
+    screen: GameScreen,
     fps: u32,
     game_state: GameState,
     renderer: Renderer
@@ -10,7 +15,7 @@ pub struct Engine {
 impl Engine {
     pub fn new() -> Self {
         Self {
-            is_running: false,
+            screen: GameScreen::Home,
             fps: 60,
             game_state: GameState::new(),
             renderer: Renderer::new()
@@ -18,13 +23,20 @@ impl Engine {
     }
 
     pub fn run(&mut self) {
-        self.is_running = true;
-        while self.is_running {
-            let dt = self.delta_time();
+        loop {
             self.check_user_input();
-            self.game_state.update(dt);
-            self.render();
+            match self.screen {
+                GameScreen::Home => self.render_home(),
+                GameScreen::Playing => self.update()
+            }
         }
+    }
+
+    pub fn update(&mut self) {
+        let dt = self.delta_time();
+        self.check_user_input();
+        self.game_state.update(dt);
+        self.render_game();
     }
 
     pub fn delta_time(&self) -> f32 {
@@ -34,11 +46,15 @@ impl Engine {
     pub fn check_user_input(&self) {
     }
 
-    pub fn render(&mut self) {
+    pub fn render_home(&mut self) {
+        self.renderer.render_home();
+    }
+
+    pub fn render_game(&mut self) {
         let renderables: Vec<&dyn Renderable> = vec![
             &self.game_state.player
         ];
-        self.renderer.render(&renderables);
+        self.renderer.render_game(&renderables);
     }
 
 }

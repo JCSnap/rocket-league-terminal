@@ -19,12 +19,17 @@ impl Renderer {
         }
     }
 
-    pub fn render(&mut self, renderables: &[&dyn Renderable]) {
+    pub fn render_home(&mut self) {
+        self.backend.render_home();
+    }
+
+    pub fn render_game(&mut self, renderables: &[&dyn Renderable]) {
         let (width, height) = crossterm::terminal::size().unwrap_or((80, 24));
-        self.backend.render(&renderables, width, height);
+        self.backend.render_game(&renderables, width, height);
     }
 }
 
 pub trait DrawBackend {
-    fn render(&mut self, renderables: &[&dyn Renderable], width: u16, height: u16);
+    fn render_home(&mut self);
+    fn render_game(&mut self, renderables: &[&dyn Renderable], width: u16, height: u16);
 }

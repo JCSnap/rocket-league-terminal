@@ -1,4 +1,4 @@
-use crate::core::{GameState, Renderer, Renderable};
+use crate::core::{GameState, Renderer, Renderable, Action, InputHandler, KeyboardInputHandler};
 
 pub enum GameScreen {
     Home,
@@ -6,24 +6,28 @@ pub enum GameScreen {
 }
 
 pub struct Engine {
+    is_running: bool,
     screen: GameScreen,
     fps: u32,
     game_state: GameState,
-    renderer: Renderer
+    renderer: Renderer,
+    input_handler: Box<dyn InputHandler>
 }
 
 impl Engine {
     pub fn new() -> Self {
         Self {
+            is_running: true,
             screen: GameScreen::Home,
             fps: 60,
             game_state: GameState::new(),
-            renderer: Renderer::new()
+            renderer: Renderer::new(),
+            input_handler: Box::new(KeyboardInputHandler::new())
         }
     }
 
     pub fn run(&mut self) {
-        loop {
+        while self.is_running {
             self.check_user_input();
             match self.screen {
                 GameScreen::Home => self.render_home(),
@@ -43,7 +47,13 @@ impl Engine {
         1.0 / self.fps as f32
     }
 
-    pub fn check_user_input(&self) {
+    pub fn check_user_input(&mut self) {
+        match self.input_handler.poll() {
+            Action::GoHome => { self.screen = GameScreen::Home },
+            Action::StartGame => { self.screen = GameScreen::Playing },
+            Action::Quit => { self.is_running = false },
+            Action::None => {}
+        }
     }
 
     pub fn render_home(&mut self) {

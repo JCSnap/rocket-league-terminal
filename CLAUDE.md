@@ -19,3 +19,5 @@ always be concise, you can make reference to the following programming languages
 
 ## goal
 anyway, the goal is to allow the user to learn rust development (and good design architecture) without ai brain rot
+
+it should also focus on SCALABLE architecture - avoid saying "for a simple game, this hardcoding is sufficient etc....", the heuristic is that you may assume that the requirements are not known, and we might have to extend it (adding new features, entities etc....) hence we want to focus on good architecture instead of simple ones for our level of complexity

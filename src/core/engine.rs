@@ -1,4 +1,4 @@
-use crate::core::{GameState, Renderer, Renderable, Action, InputHandler, KeyboardInputHandler};
+use crate::core::{Action, GameState, InputHandler, KeyboardInputHandler, PhysicsBody, PhysicsEngine, Renderable, Renderer};
 
 pub enum GameScreen {
     Home,
@@ -9,6 +9,7 @@ pub struct Engine {
     is_running: bool,
     screen: GameScreen,
     fps: u32,
+    physics_engine: PhysicsEngine,
     game_state: GameState,
     renderer: Renderer,
     input_handler: Box<dyn InputHandler>
@@ -20,6 +21,7 @@ impl Engine {
             is_running: true,
             screen: GameScreen::Home,
             fps: 60,
+            physics_engine: PhysicsEngine::new(),
             game_state: GameState::new(),
             renderer: Renderer::new(),
             input_handler: Box::new(KeyboardInputHandler::new())
@@ -39,6 +41,8 @@ impl Engine {
     pub fn update(&mut self) {
         let dt = self.delta_time();
         self.check_user_input();
+        let mut physics_bodies = self.game_state.get_physics_bodies();
+        self.physics_engine.update(&mut physics_bodies, dt);
         self.game_state.update(dt);
         self.render_game();
     }
@@ -65,10 +69,9 @@ impl Engine {
     }
 
     pub fn render_game(&mut self) {
-        let renderables: Vec<&dyn Renderable> = vec![
-            &self.game_state.player
-        ];
+        let renderables = self.game_state.get_renderables();
         self.renderer.render_game(&renderables);
     }
+
 
 }

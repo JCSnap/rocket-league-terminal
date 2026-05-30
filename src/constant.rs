@@ -1,6 +1,6 @@
 use crate::math::Vec2;
 
-pub const GRAVITY: Vec2 = Vec2 { x: 0.0, y: -9.8 };
+pub const GRAVITY: Vec2 = Vec2 { x: 0.0, y: -0.01 };
 
 // player
 pub const PLAYER_MASS: f32 = 10.0;

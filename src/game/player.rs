@@ -19,6 +19,6 @@ impl Player {
 
 impl Renderable for Player {
     fn shape(&self) -> Shape {
-        self.collider.shape
+        Shape::Circle(Circle { origin: self.body.position, radius: PLAYER_RADIUS })
     }
 }

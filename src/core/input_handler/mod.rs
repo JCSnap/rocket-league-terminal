@@ -5,9 +5,13 @@ pub enum Action {
     GoHome,
     StartGame,
     Quit,
+    Up,
+    Down,
+    Left,
+    Right,
     None
 }
 
 pub trait InputHandler {
-    fn poll(&self) -> Action;
+    fn poll(&mut self) -> Vec<Action>;
 }

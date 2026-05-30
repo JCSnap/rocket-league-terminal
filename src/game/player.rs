@@ -8,7 +8,7 @@ pub struct Player {
 impl Player {
     pub fn new() -> Self {
         Self {
-            position: Point::default()
+            position: Point { x: 0.1, y: 0.1 }
         }
     }
 }

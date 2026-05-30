@@ -23,7 +23,7 @@ impl RatatuiBackend {
 fn draw_circle(circle: &Circle, frame: &mut Frame, width: u16, height: u16) {
     let canvas = Canvas::default()
         .x_bounds([0.0, width as f64])
-        .y_bounds([0.0, height as f64])
+        .y_bounds([0.0, height as f64 * 2.0])
         .paint(|ctx| {
             ctx.draw(&RatatuiCircle {
                 x: circle.origin.x as f64 * width as f64,

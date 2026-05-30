@@ -48,11 +48,15 @@ impl Engine {
     }
 
     pub fn check_user_input(&mut self) {
-        match self.input_handler.poll() {
-            Action::GoHome => { self.screen = GameScreen::Home },
-            Action::StartGame => { self.screen = GameScreen::Playing },
-            Action::Quit => { self.is_running = false },
-            Action::None => {}
+        let actions = self.input_handler.poll();
+        for action in actions {
+            match action {
+                Action::GoHome => { self.screen = GameScreen::Home },
+                Action::StartGame => { self.screen = GameScreen::Playing },
+                Action::Quit => { self.is_running = false },
+                Action::None => {},
+                _ => {}
+            }
         }
     }
 

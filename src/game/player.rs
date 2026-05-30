@@ -1,5 +1,6 @@
 use crate::math::{Shape, Circle, Point, Rect};
 use crate::core::{Renderable, PhysicsBody, Collider};
+use crate::constant::{PLAYER_MASS, PLAYER_STARTING_X, PLAYER_STARTING_Y, PLAYER_RADIUS};
 
 pub struct Player {
     pub body: PhysicsBody,
@@ -8,10 +9,10 @@ pub struct Player {
 
 impl Player {
     pub fn new() -> Self {
-        let starting_position = Point { x: 0.1, y: 0.1 };
+        let starting_position = Point { x: PLAYER_STARTING_X, y: PLAYER_STARTING_Y };
         Self {
-            body: PhysicsBody::new(starting_position, 10.0 ),
-            collider: Collider::new(Shape::Circle(Circle { origin: starting_position, radius: 5.0 }))
+            body: PhysicsBody::new(starting_position, PLAYER_MASS ),
+            collider: Collider::new(Shape::Circle(Circle { origin: starting_position, radius: PLAYER_RADIUS }))
         }
     }
 }

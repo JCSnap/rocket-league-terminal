@@ -1,6 +1,7 @@
 mod core;
 mod math;
 mod game;
+mod constant;
 
 use crate::core::Engine;
 

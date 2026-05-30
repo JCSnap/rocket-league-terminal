@@ -1,4 +1,5 @@
 use crate::math::{Shape, Circle, Point, Vec2};
+use crate::constant::GRAVITY;
 
 pub struct Collider {
     pub shape: Shape
@@ -30,3 +31,14 @@ impl PhysicsBody {
     }
 }
 
+pub struct PhysicsEngine {
+    gravity: Vec2
+}
+
+impl PhysicsEngine {
+    pub fn new() -> Self {
+        Self {
+            gravity: GRAVITY
+        }
+    }
+}

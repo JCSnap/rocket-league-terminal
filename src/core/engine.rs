@@ -1,22 +1,29 @@
+use crate::core::{GameState, Renderer};
+
 pub struct Engine {
     is_running: bool,
     fps: u32,
+    game_state: GameState,
+    renderer: Renderer
 }
 
 impl Engine {
     pub fn new() -> Self {
         Self {
             is_running: false,
-            fps: 60
+            fps: 60,
+            game_state: GameState::new(),
+            renderer: Renderer::new()
         }
     }
 
-    pub fn run(mut &self) {
+    pub fn run(&mut self) {
         self.is_running = true;
-    }
-
-    pub fn is_game_running(&self) -> bool {
-        self.is_running
+        while self.is_running {
+            let dt = self.delta_time();
+            self.check_user_input();
+            self.game_state.update(dt);
+        }
     }
 
     pub fn delta_time(&self) -> f32 {
@@ -27,7 +34,4 @@ impl Engine {
         println!("checking user input")
     }
 
-    pub fn render(&self) {
-        println!("rendering")
-    }
 }

@@ -1,4 +1,4 @@
-use crate::core::{GameState, Renderer};
+use crate::core::{GameState, Renderer, Renderable};
 
 pub struct Engine {
     is_running: bool,
@@ -32,6 +32,13 @@ impl Engine {
 
     pub fn check_user_input(&self) {
         println!("checking user input")
+    }
+
+    pub fn render(&self) {
+        let renderables: Vec<&dyn Renderable> = vec![
+            &self.game_state.player
+        ];
+        self.renderer.render(&renderables);
     }
 
 }

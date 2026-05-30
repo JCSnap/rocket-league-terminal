@@ -1,7 +1,7 @@
 use crate::game::Player;
 
 pub struct GameState {
-    player: Player
+    pub player: Player
 }
 
 impl GameState {

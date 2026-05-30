@@ -1,3 +1,5 @@
+use super::DrawBackend;
+use crate::math::Point;
 use ratatui::{
     buffer::Buffer,
     layout::Rect,
@@ -7,18 +9,11 @@ use ratatui::{
     widgets::{Block, Paragraph, Widget},
     DefaultTerminal, Frame,
 };
-use crate::math::Shape;
 
-pub trait Renderable {
-    fn shape(&self) -> Shape;
+pub struct RatatuiBackend {
 }
 
-pub struct Renderer {
-}
-
-impl Renderer {
-    pub fn new() -> Self {
-        Self {
-        }
+impl DrawBackend for RatatuiBackend {
+    fn draw_circle(&self, origin: Point, radius: f32) {
     }
 }

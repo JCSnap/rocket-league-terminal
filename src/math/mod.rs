@@ -12,6 +12,15 @@ pub struct Vec2 {
     pub y: f32
 }
 
+impl Vec2 {
+    pub fn clamp_components(&self, max_mag: f32) -> Vec2 {
+        Vec2 {
+            x: self.x.clamp(-max_mag, max_mag),
+            y: self.y.clamp(-max_mag, max_mag)
+        }
+    }
+}
+
 impl AddAssign for Vec2 {
     fn add_assign(&mut self, rhs: Self) {
         self.x += rhs.x;

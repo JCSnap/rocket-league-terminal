@@ -42,7 +42,6 @@ impl Engine {
 
     pub fn update(&mut self) {
         let dt = self.delta_time();
-        self.check_user_input();
         let mut physics_bodies = self.game_state.get_physics_bodies();
         self.physics_engine.update(&mut physics_bodies, dt);
         self.game_state.update(dt);
@@ -60,10 +59,10 @@ impl Engine {
                 Action::GoHome => { self.screen = GameScreen::Home },
                 Action::StartGame => { self.screen = GameScreen::Playing },
                 Action::Quit => { self.is_running = false },
-                Action::Up => { self.game_state.player.body.force += Vec2 { x: 0.0, y: PLAYER_INPUT_FORCE_MAG } },
-                Action::Down => { self.game_state.player.body.force += Vec2 { x: 0.0, y: -PLAYER_INPUT_FORCE_MAG } },
-                Action::Left => { self.game_state.player.body.force += Vec2 { x: -PLAYER_INPUT_FORCE_MAG, y: 0.0 } },
-                Action::Right => { self.game_state.player.body.force += Vec2 { x: PLAYER_INPUT_FORCE_MAG, y: 0.0 } },
+                Action::Up => { self.game_state.player.apply_force(Vec2 { x: 0.0, y: PLAYER_INPUT_FORCE_MAG }) },
+                Action::Down => { self.game_state.player.apply_force(Vec2 { x: 0.0, y: -PLAYER_INPUT_FORCE_MAG }) },
+                Action::Left => { self.game_state.player.apply_force(Vec2 { x: -PLAYER_INPUT_FORCE_MAG, y: 0.0 }) },
+                Action::Right => { self.game_state.player.apply_force(Vec2 { x: PLAYER_INPUT_FORCE_MAG, y: 0.0 }) },
                 Action::None => {},
                 _ => {}
             }

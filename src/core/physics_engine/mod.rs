@@ -15,9 +15,9 @@ impl Collider {
 
 pub struct PhysicsBody {
     pub position: Point,
-    velocity: Vec2,
-    force: Vec2,
-    mass: f32
+    pub velocity: Vec2,
+    pub force: Vec2,
+    pub mass: f32
 }
 
 impl PhysicsBody {

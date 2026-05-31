@@ -1,4 +1,6 @@
 use crate::core::{Action, GameState, InputHandler, KeyboardInputHandler, PhysicsBody, PhysicsEngine, Renderable, Renderer};
+use crate::constant::PLAYER_INPUT_FORCE_MAG;
+use crate::math::Vec2;
 
 pub enum GameScreen {
     Home,
@@ -58,6 +60,10 @@ impl Engine {
                 Action::GoHome => { self.screen = GameScreen::Home },
                 Action::StartGame => { self.screen = GameScreen::Playing },
                 Action::Quit => { self.is_running = false },
+                Action::Up => { self.game_state.player.body.force += Vec2 { x: 0.0, y: PLAYER_INPUT_FORCE_MAG } },
+                Action::Down => { self.game_state.player.body.force += Vec2 { x: 0.0, y: -PLAYER_INPUT_FORCE_MAG } },
+                Action::Left => { self.game_state.player.body.force += Vec2 { x: -PLAYER_INPUT_FORCE_MAG, y: 0.0 } },
+                Action::Right => { self.game_state.player.body.force += Vec2 { x: PLAYER_INPUT_FORCE_MAG, y: 0.0 } },
                 Action::None => {},
                 _ => {}
             }

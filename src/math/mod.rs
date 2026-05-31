@@ -67,3 +67,18 @@ pub struct Circle {
     pub origin: Point,
     pub radius: f32
 }
+
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_clamp_components() {
+        let v = Vec2 { x: 10.0, y: -20.0 };
+        let max_component_mag = 15.0;
+        let clamped = v.clamp_components(max_component_mag);
+        assert_eq!(clamped.x, 10.0, "x component should not be clamped since it's below max");
+        assert_eq!(clamped.y, -max_component_mag, "y component should be clamped since it's above max, sign should remain unchanged");
+    }
+}

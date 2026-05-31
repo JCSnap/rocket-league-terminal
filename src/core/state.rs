@@ -24,9 +24,9 @@ impl GameState {
     }
 
     pub fn get_renderables(&mut self) -> Vec<&dyn Renderable> {
-        vec![
-            &mut self.player
-        ]
+        let mut renderables: Vec<&dyn Renderable> = vec![&mut self.player];
+        renderables.extend(self.walls.iter().map(|w| w as &dyn Renderable));
+        renderables
     }
 
     pub fn get_physics_bodies(&mut self) -> Vec<&mut PhysicsBody> {

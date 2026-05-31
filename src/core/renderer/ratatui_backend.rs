@@ -38,11 +38,11 @@ fn draw_circle(circle: &Circle, frame: &mut Frame, width: u16, height: u16) {
 fn draw_rect(rect: &Rect, frame: &mut Frame, width: u16, height: u16) {
     let canvas = Canvas::default()
         .x_bounds([0.0, width as f64])
-        .y_bounds([0.0, height as f64 * 2.0])
+        .y_bounds([0.0, height as f64])
         .paint(|ctx| {
             ctx.draw(&RatatuiRect {
-                x: rect.origin.x as f64 * width as f64,
-                y: rect.origin.y as f64 * height as f64,
+                x: (rect.origin.x - rect.width / 2.0) as f64 * width as f64,
+                y: (rect.origin.y - rect.height / 2.0) as f64 * height as f64,
                 width: rect.width as f64 * width as f64,
                 height: rect.height as f64 * height as f64,
                 color: Color::White,

@@ -1,11 +1,11 @@
 use super::{DrawBackend, Renderable};
-use crate::math::{Shape, Circle, Point};
+use crate::math::{Shape, Circle, Rect, Point};
 use ratatui::{
     DefaultTerminal,
     Frame,
     style::Color,
     text::{Text, Line},
-    widgets::{Paragraph, canvas::{Canvas, Circle as RatatuiCircle}},
+    widgets::{Paragraph, canvas::{Canvas, Circle as RatatuiCircle, Rectangle as RatatuiRect}},
 };
 
 pub struct RatatuiBackend {
@@ -35,6 +35,22 @@ fn draw_circle(circle: &Circle, frame: &mut Frame, width: u16, height: u16) {
     frame.render_widget(canvas, frame.area());
 }
 
+fn draw_rect(rect: &Rect, frame: &mut Frame, width: u16, height: u16) {
+    let canvas = Canvas::default()
+        .x_bounds([0.0, width as f64])
+        .y_bounds([0.0, height as f64 * 2.0])
+        .paint(|ctx| {
+            ctx.draw(&RatatuiRect {
+                x: rect.origin.x as f64 * width as f64,
+                y: rect.origin.y as f64 * height as f64,
+                width: rect.width as f64 * width as f64,
+                height: rect.height as f64 * height as f64,
+                color: Color::White,
+            }); 
+        });
+    frame.render_widget(canvas, frame.area());
+}   
+
 impl DrawBackend for RatatuiBackend {
     fn render_home(&mut self) {
         self.terminal.draw(|frame| {
@@ -53,6 +69,7 @@ impl DrawBackend for RatatuiBackend {
             for renderable in renderables {
                 match renderable.shape() {
                     Shape::Circle(circle) => draw_circle(&circle, frame, width, height),
+                    Shape::Rect(rect) => draw_rect(&rect, frame, width, height)
                 }
             }
         }).unwrap();

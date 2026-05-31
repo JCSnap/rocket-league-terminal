@@ -18,7 +18,7 @@ impl Player {
 
     pub fn apply_force(&mut self, force: Vec2) {
         self.body.force += force;
-        self.body.force.clamp_components(PLAYER_MAX_INPUT_FORCE_COMPONENT_MAG);
+        self.body.force = self.body.force.clamp_components(PLAYER_MAX_INPUT_FORCE_COMPONENT_MAG);
     }
 }
 

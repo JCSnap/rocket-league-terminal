@@ -1,4 +1,4 @@
-use crate::math::{Point, Rect};
+use crate::math::{Point};
 
 pub struct Map {
     pub position: Point,

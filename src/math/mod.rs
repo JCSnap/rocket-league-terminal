@@ -56,7 +56,8 @@ impl Mul<f32> for Vec2 {
 
 #[derive(Copy, Clone)]
 pub enum Shape {
-    Circle(Circle)
+    Circle(Circle),
+    Rect(Rect),
 }
 
 #[derive(Copy, Clone)]

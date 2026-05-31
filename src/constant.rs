@@ -1,12 +1,14 @@
 use crate::math::Vec2;
 
-pub const GRAVITY: Vec2 = Vec2 { x: 0.0, y: -0.01 };
+// world
+pub const GRAVITY: Vec2 = Vec2 { x: 0.0, y: -0.05 };
+pub const DRAG_COEFFICIENT: f32 = 10.0;
 
 // player
 pub const PLAYER_MASS: f32 = 10.0;
 pub const PLAYER_RADIUS: f32 = 5.0;
 pub const PLAYER_STARTING_X: f32 = 0.1;
 pub const PLAYER_STARTING_Y: f32 = 0.1;
-pub const PLAYER_INPUT_FORCE_MAG: f32 = 0.05;
+pub const PLAYER_INPUT_FORCE_MAG: f32 = 0.09;
 
 pub const PLAYER_MAX_INPUT_FORCE_COMPONENT_MAG: f32 = 0.2;

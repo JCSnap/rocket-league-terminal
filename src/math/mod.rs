@@ -13,6 +13,10 @@ pub struct Vec2 {
 }
 
 impl Vec2 {
+    pub fn magnitude(&self) -> f32 {
+        (self.x * self.x + self.y * self.y).sqrt()
+    }
+
     pub fn clamp_components(&self, max_mag: f32) -> Vec2 {
         Vec2 {
             x: self.x.clamp(-max_mag, max_mag),
